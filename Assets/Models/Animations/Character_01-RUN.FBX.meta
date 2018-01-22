@@ -1,0 +1,176 @@
+fileFormatVersion: 2
+guid: 960c08c30ded06c4db02409b13c130e9
+timeCreated: 1516031770
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Character-RIGHead
+    100002: Character-RIGLCalf
+    100004: Character-RIGLCollarbone
+    100006: Character-RIGLDigit11
+    100008: Character-RIGLDigit11 1
+    100010: Character-RIGLDigit12
+    100012: Character-RIGLDigit12 1
+    100014: Character-RIGLDigit13
+    100016: Character-RIGLDigit21
+    100018: Character-RIGLDigit22
+    100020: Character-RIGLDigit23
+    100022: Character-RIGLFoot
+    100024: Character-RIGLForearm1
+    100026: Character-RIGLForearm2
+    100028: Character-RIGLPalm
+    100030: Character-RIGLThigh
+    100032: Character-RIGLUpperarm1
+    100034: Character-RIGLUpperarm2
+    100036: Character-RIGNeck1
+    100038: Character-RIGNeck2
+    100040: Character-RIGPelvis
+    100042: Character-RIGRCalf
+    100044: Character-RIGRCollarbone
+    100046: Character-RIGRDigit11
+    100048: Character-RIGRDigit11 1
+    100050: Character-RIGRDigit12
+    100052: Character-RIGRDigit12 1
+    100054: Character-RIGRDigit13
+    100056: Character-RIGRDigit21
+    100058: Character-RIGRDigit22
+    100060: Character-RIGRDigit23
+    100062: Character-RIGRFoot
+    100064: Character-RIGRForearm1
+    100066: Character-RIGRForearm2
+    100068: Character-RIGRibcage
+    100070: Character-RIGRPalm
+    100072: Character-RIGRThigh
+    100074: Character-RIGRUpperarm1
+    100076: Character-RIGRUpperarm2
+    100078: Character-RIGSpine1
+    100080: Character-RIGSpine2
+    100082: Character-RIGSpine3
+    100084: Character-RIGSpine4
+    100086: Character_01
+    100088: //RootNode
+    400000: Character-RIGHead
+    400002: Character-RIGLCalf
+    400004: Character-RIGLCollarbone
+    400006: Character-RIGLDigit11
+    400008: Character-RIGLDigit11 1
+    400010: Character-RIGLDigit12
+    400012: Character-RIGLDigit12 1
+    400014: Character-RIGLDigit13
+    400016: Character-RIGLDigit21
+    400018: Character-RIGLDigit22
+    400020: Character-RIGLDigit23
+    400022: Character-RIGLFoot
+    400024: Character-RIGLForearm1
+    400026: Character-RIGLForearm2
+    400028: Character-RIGLPalm
+    400030: Character-RIGLThigh
+    400032: Character-RIGLUpperarm1
+    400034: Character-RIGLUpperarm2
+    400036: Character-RIGNeck1
+    400038: Character-RIGNeck2
+    400040: Character-RIGPelvis
+    400042: Character-RIGRCalf
+    400044: Character-RIGRCollarbone
+    400046: Character-RIGRDigit11
+    400048: Character-RIGRDigit11 1
+    400050: Character-RIGRDigit12
+    400052: Character-RIGRDigit12 1
+    400054: Character-RIGRDigit13
+    400056: Character-RIGRDigit21
+    400058: Character-RIGRDigit22
+    400060: Character-RIGRDigit23
+    400062: Character-RIGRFoot
+    400064: Character-RIGRForearm1
+    400066: Character-RIGRForearm2
+    400068: Character-RIGRibcage
+    400070: Character-RIGRPalm
+    400072: Character-RIGRThigh
+    400074: Character-RIGRUpperarm1
+    400076: Character-RIGRUpperarm2
+    400078: Character-RIGSpine1
+    400080: Character-RIGSpine2
+    400082: Character-RIGSpine3
+    400084: Character-RIGSpine4
+    400086: Character_01
+    400088: //RootNode
+    4300000: Character_01
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Character_01
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

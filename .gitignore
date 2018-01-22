@@ -8,8 +8,6 @@
 /Assets/Editor/GitHub.meta
 
 /Assets/SampleScenes/
-!Assets/
-!Assets/Standard\ Assets/
 Assets/Standard\ Assets/*
 !Assets/Standard\ Assets/Cameras/
 !Assets/Standard\ Assets/Characters/
