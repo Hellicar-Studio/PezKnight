@@ -6,7 +6,13 @@
 
 /Assets/AssetStoreTools*
 /Assets/Editor/GitHub.meta
-/Assets/Editor/GitHub/
+
+/Assets/SampleScenes/
+!Assets/
+!Assets/Standard\ Assets/
+Assets/Standard\ Assets/*
+!Assets/Standard\ Assets/Cameras/
+!Assets/Standard\ Assets/Characters/
 
 # Project specific files
 *.dll
