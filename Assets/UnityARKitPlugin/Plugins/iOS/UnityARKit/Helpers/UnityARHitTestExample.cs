@@ -76,7 +76,6 @@ namespace UnityEngine.XR.iOS
 
 		}
 
-	
 	}
 }
 
