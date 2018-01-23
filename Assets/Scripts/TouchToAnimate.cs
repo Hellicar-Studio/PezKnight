@@ -22,6 +22,15 @@ namespace UnityEngine.XR.iOS
 	        List<ARHitTestResult> hitResults = UnityARSessionNativeInterface.GetARSessionNativeInterface ().HitTest (point, resultTypes);
 	        if (hitResults.Count > 0) {
 	            foreach (var hitResult in hitResults) {
+	            if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+				{
+					Animator.SetBool("OnGround", false);
+					// jump!
+					//m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
+					//m_IsGrounded = false;
+					//Animator.applyRootMotion = false;
+					//m_GroundCheckDistance = 0.1f;
+				}
 	                Debug.Log ("Got hit On Character!");
 	                m_HitTransform.position = UnityARMatrixOps.GetPosition (hitResult.worldTransform);
 	                m_HitTransform.rotation = UnityARMatrixOps.GetRotation (hitResult.worldTransform);
@@ -50,14 +59,7 @@ namespace UnityEngine.XR.iOS
 					//m_HitTransform.rotation = hit.transform.rotation;
 					//Debug.Log ("Got hit On Character!");
 							// check whether conditions are right to allow a jump:
-					if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
-					{
-						// jump!
-						m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
-						m_IsGrounded = false;
-						m_Animator.applyRootMotion = false;
-						m_GroundCheckDistance = 0.1f;
-					}
+					Animator.SetBool("OnGround", false);
 				}
 			}
 			#else
@@ -88,6 +90,8 @@ namespace UnityEngine.XR.iOS
 	                        return;
 	                    }
 	                }
+				} else if(Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded")) {
+					Animator.SetBool("OnGround", true);
 				}
 			}
 			#endif
