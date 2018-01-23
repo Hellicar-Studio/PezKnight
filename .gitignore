@@ -11,6 +11,12 @@
 Assets/Standard\ Assets/*
 !Assets/Standard\ Assets/Cameras/
 !Assets/Standard\ Assets/Characters/
+!Assets/Standard\ Assets/CrossPlatformInput/
+!Assets/Standard\ Assets/Editor/
+!Assets/Standard\ Assets/Utility/
+
+Assets/UnityARKitPlugin/Examples/
+
 
 # Project specific files
 *.dll
