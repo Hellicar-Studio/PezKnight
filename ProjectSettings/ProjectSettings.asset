@@ -142,7 +142,7 @@ PlayerSettings:
   resolutionScalingMode: 0
   applicationIdentifier:
     Android: com.Company.ProductName
-    Standalone: unity.Unity Technologies.Native Rendering Plugin Example
+    Standalone: com.HellicarStudio.PezKnight
     Tizen: com.Company.ProductName
     iOS: com.unity.arkitscene
     tvOS: com.Company.ProductName
@@ -715,13 +715,13 @@ PlayerSettings:
     Game_Performance: 0
     Hub: 0
     Purchasing: 0
-    UNet: 0
+    UNet: 1
     Unity_Ads: 0
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 01bf36e8-dc1a-4469-a887-46cba990d6f4
-  projectName: AR-Project
-  organizationId: tubb_1977
+  cloudProjectId: 738aa43d-51c6-4c22-96c8-11f820fb50f9
+  projectName: Unity ARKit Plugin
+  organizationId: james-bentley-c6fc7def-5067-47e3-bfed-bb584f79646f
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

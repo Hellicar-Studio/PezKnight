@@ -38,3 +38,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/UnityARKitPlugin/Examples/FaceTracking/FaceDirectionalLightEstimate.unity
     guid: 360fd35caee4f4e069485021a27c0b06
+  - enabled: 1
+    path: Assets/Scenes/PezKnightAR.unity
+    guid: a859a93be035d4105b35d22e9f83288b
