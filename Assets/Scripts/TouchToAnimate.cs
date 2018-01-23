@@ -6,7 +6,6 @@ namespace UnityEngine.XR.iOS
 {
 	public class TouchToAnimate : MonoBehaviour {
 
-		public Transform m_HitTransform;
 		public float maxRayDistance = 30.0f;
 		public LayerMask collisionLayer = 1 << 8;  //ARKitPlane layer
 		public Animator Animator;
@@ -32,9 +31,9 @@ namespace UnityEngine.XR.iOS
 					//m_GroundCheckDistance = 0.1f;
 				}
 	                Debug.Log ("Got hit On Character!");
-	                m_HitTransform.position = UnityARMatrixOps.GetPosition (hitResult.worldTransform);
-	                m_HitTransform.rotation = UnityARMatrixOps.GetRotation (hitResult.worldTransform);
-	                Debug.Log (string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z));
+	                //m_HitTransform.position = UnityARMatrixOps.GetPosition (hitResult.worldTransform);
+	                //m_HitTransform.rotation = UnityARMatrixOps.GetRotation (hitResult.worldTransform);
+	                //Debug.Log (string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z));
 	                return true;
 	            }
 	        }
@@ -53,7 +52,6 @@ namespace UnityEngine.XR.iOS
 				if (Physics.Raycast (ray, out hit, maxRayDistance, collisionLayer)) {
 					//we're going to get the position from the contact point
 					//m_HitTransform.position = hit.point;
-					Debug.Log (string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z));
 
 					//and the rotation from the transform of the plane collider
 					//m_HitTransform.rotation = hit.transform.rotation;
@@ -63,7 +61,7 @@ namespace UnityEngine.XR.iOS
 				}
 			}
 			#else
-			if (Input.touchCount > 0 && m_HitTransform != null)
+			if (Input.touchCount > 0)
 			{
 				var touch = Input.GetTouch(0);
 				if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
