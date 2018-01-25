@@ -144,7 +144,7 @@ PlayerSettings:
     Android: com.Company.ProductName
     Standalone: com.HellicarStudio.PezKnight
     Tizen: com.Company.ProductName
-    iOS: com.unity.arkitscene
+    iOS: com.HellicarStudio.ARBall
     tvOS: com.Company.ProductName
   buildNumber:
     iOS: 0
