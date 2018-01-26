@@ -12,8 +12,11 @@ namespace UnityEngine.XR.iOS
         public Material mat;
         public float wobbleUpSpeed;
         public float wobbleDownSpeed;
+        public float wobbleUpTarget;
+        public float wobbleDownTarget;
         private float wobbleAmount = 0.0f;
         private Coroutine currentCoroutine;
+        public bool goingUp = false;
 
         void Enabled()
         {
@@ -22,7 +25,8 @@ namespace UnityEngine.XR.iOS
 
         IEnumerator WobbleUp()
         {
-            while (wobbleAmount < 1.0f)
+            goingUp = true;
+            while (wobbleAmount < wobbleUpTarget)
             {
                 wobbleAmount += wobbleUpSpeed;
                 yield return null;
@@ -31,7 +35,8 @@ namespace UnityEngine.XR.iOS
 
         IEnumerator WobbleDown()
         {
-            while (wobbleAmount > 0.0f)
+            goingUp = false;
+            while (wobbleAmount > wobbleDownTarget)
             {
                 wobbleAmount -= wobbleDownSpeed;
                 yield return null;
@@ -42,7 +47,7 @@ namespace UnityEngine.XR.iOS
         void Update()
         {
             mat.SetFloat("_NoiseAmount", wobbleAmount);
-            #if UNITY_EDITOR   //we will only use this script on the editor side, though there is nothing that would prevent it from working on device
+#if UNITY_EDITOR   //we will only use this script on the editor side, though there is nothing that would prevent it from working on device
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Mouse button down");
@@ -53,18 +58,21 @@ namespace UnityEngine.XR.iOS
                     Debug.Log("Hit!");
                     if (currentCoroutine != null)
                         StopCoroutine(currentCoroutine);
-                    currentCoroutine = StartCoroutine("WobbleUp");
+                    if (!goingUp)
+                        currentCoroutine = StartCoroutine("WobbleUp");
+                    else
+                        currentCoroutine = StartCoroutine("WobbleDown");
                 }
-                else
-                {
-                    Debug.Log("Miss!");
-                    if (currentCoroutine != null)
-                        StopCoroutine(currentCoroutine);
-                    currentCoroutine = StartCoroutine("WobbleDown");
-                }
+                //else
+                //{
+                //    Debug.Log("Miss!");
+                //    if (currentCoroutine != null)
+                //        StopCoroutine(currentCoroutine);
+                //    currentCoroutine = StartCoroutine("WobbleDown");
+                //}
             }
 
-            #else
+#else
             for (var i = 0; i < Input.touchCount; ++i) {
                 if (Input.GetTouch(i).phase == TouchPhase.Began) {
                  
@@ -76,19 +84,15 @@ namespace UnityEngine.XR.iOS
                         Debug.Log("Hit!");
                         if (currentCoroutine != null)
                             StopCoroutine(currentCoroutine);
-                        currentCoroutine = StartCoroutine("WobbleUp");
+                        if (!goingUp)
+                            currentCoroutine = StartCoroutine("WobbleUp");
+                        else
+                            currentCoroutine = StartCoroutine("WobbleDown");
                     }
-                    else
-                    {
-                        Debug.Log("Miss!");
-                        if (currentCoroutine != null)
-                            StopCoroutine(currentCoroutine);
-                        currentCoroutine = StartCoroutine("WobbleDown");
-                    }               
                 }
             }
-            #endif
+#endif
 
-		}
+        }
 	}
 }
