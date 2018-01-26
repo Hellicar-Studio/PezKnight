@@ -40,6 +40,7 @@ namespace UnityEngine.XR.iOS
 
 					//and the rotation from the transform of the plane collider
 					m_HitTransform.rotation = hit.transform.rotation;
+					enabled = false;
 				}
 			}
 			#else
@@ -67,6 +68,7 @@ namespace UnityEngine.XR.iOS
                     {
                         if (HitTestWithResultType (point, resultType))
                         {
+                        	enabled = false;
                             return;
                         }
                     }
@@ -76,7 +78,6 @@ namespace UnityEngine.XR.iOS
 
 		}
 
-	
 	}
 }
 
