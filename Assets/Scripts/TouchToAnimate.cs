@@ -10,13 +10,20 @@ namespace UnityEngine.XR.iOS
         public float maxRayDistance = 30.0f;
         public LayerMask collisionLayer = 1 << 8;  //ARKitPlane layer
         public Material mat;
-        public float wobbleUpSpeed;
-        public float wobbleDownSpeed;
+        public float upAmount;
+        public float upSpeed;
+        public float downSpeed;
         public float wobbleUpTarget;
         public float wobbleDownTarget;
-        private float wobbleAmount = 0.0f;
+        public float panelsDownScale;
+        public float panelsUpScale;
         private Coroutine currentCoroutine;
-        public bool goingUp = false;
+        private bool goingUp = false;
+        public Transform PanelsTransform;
+
+        float map(float value, float low1, float high1, float low2, float high2) {
+            return low2 + (value - low1) * (high2 - low2) / (high1 - low1);
+        }
 
         void Enabled()
         {
@@ -26,34 +33,39 @@ namespace UnityEngine.XR.iOS
         IEnumerator WobbleUp()
         {
             goingUp = true;
-            while (wobbleAmount < wobbleUpTarget)
+            while (upAmount < 1.0f)
             {
-                wobbleAmount += wobbleUpSpeed;
+                upAmount += upSpeed;
                 yield return null;
             }
+            upAmount = 1.0f;
         }
 
         IEnumerator WobbleDown()
         {
             goingUp = false;
-            while (wobbleAmount > wobbleDownTarget)
+            while (upAmount > 0.0f)
             {
-                wobbleAmount -= wobbleDownSpeed;
+                upAmount -= downSpeed;
                 yield return null;
             }
+            upAmount = 0.0f;
         }
 
         // Update is called once per frame
         void Update()
         {
-            mat.SetFloat("_NoiseAmount", wobbleAmount);
+            mat.SetFloat("_NoiseAmount", map(upAmount, 0.0f, 1.0f, wobbleDownTarget, wobbleUpTarget));
+            float panelsScale = map(upAmount, 0.0f, 1.0f, panelsDownScale, panelsUpScale);
+            PanelsTransform.localScale = new Vector3(panelsScale, panelsScale, panelsScale);
 #if UNITY_EDITOR   //we will only use this script on the editor side, though there is nothing that would prevent it from working on device
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Mouse button down");
+                RaycastHit rayHit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray))
+                if (Physics.Raycast(ray, out rayHit, 100, collisionLayer))
                 {
                     Debug.Log("Hit!");
                     if (currentCoroutine != null)
@@ -63,13 +75,6 @@ namespace UnityEngine.XR.iOS
                     else
                         currentCoroutine = StartCoroutine("WobbleDown");
                 }
-                //else
-                //{
-                //    Debug.Log("Miss!");
-                //    if (currentCoroutine != null)
-                //        StopCoroutine(currentCoroutine);
-                //    currentCoroutine = StartCoroutine("WobbleDown");
-                //}
             }
 
 #else
@@ -78,8 +83,9 @@ namespace UnityEngine.XR.iOS
                  
                     // Construct a ray from the current touch coordinates
                     Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
+                    RaycastHit rayHit;
                     // Create a particle if hit
-                    if (Physics.Raycast(ray))
+                    if (Physics.Raycast(ray, out rayHit, 100, collisionLayer))
                     {
                         Debug.Log("Hit!");
                         if (currentCoroutine != null)
