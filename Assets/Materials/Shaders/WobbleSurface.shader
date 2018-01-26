@@ -1,9 +1,12 @@
 ﻿Shader "Custom/WobbleSurface" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
+        _Ambient ("Ambient", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
+        _NoiseScale ("Noise Scale", Range(0, 2)) = 1
+        _NoiseAmount ("Noise Amount", Range(0, 5)) = 1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -26,6 +29,7 @@
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
+        uniform fixed4 _Ambient;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -35,6 +39,7 @@
 		UNITY_INSTANCING_CBUFFER_END
         
             uniform float _NoiseScale;
+            uniform float _NoiseAmount;
 
             float mod289(float x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
             float4 mod289(float4 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
@@ -79,95 +84,50 @@
                 return float3(x, y, z);
             }
 
-            /*
-            v2f vert (inout appdata_base v)
-            {
-                float3 pos = v.vertex;
-                float r = length(pos);
-                float theta = atan2(pos.y, pos.x);
-                float phi = acos(pos.z / r);
+            void vert (inout appdata_base v) {
 
-                theta -= PI;
-                phi -= PI/2;
+                    float3 pos = v.vertex;
+                    float r = length(pos);
+                    float theta = atan2(pos.y, pos.x);
+                    float phi = acos(pos.z / r);
 
-                float stepSize = 1000;
+                    theta -= PI;
+                    phi -= PI/2;
 
-                float thetaPlus = theta + 1.0f/stepSize;
-                float phiPlus = phi + 1.0f/ stepSize;
-                float thetaMinus = theta - 1.0f/ stepSize;
-                float phiMinus = phi - 1.0f/ stepSize;
+                    float stepSize = 1.0;
 
-                float3 p = getPoint(r, theta, phi);
-                float3 pointPlusTheta = getPoint(r, thetaPlus, phi);
-                float3 pointPlusPhi = getPoint(r, theta, phiPlus);
+                    float thetaPlus = theta + 1.0f/stepSize;
+                    float phiPlus = phi + 1.0f/ stepSize;
+                    float thetaMinus = theta - 1.0f/ stepSize;
+                    float phiMinus = phi - 1.0f/ stepSize;
 
+                    float3 p = getPoint(r, theta, phi);
+                    float3 pointPlusTheta = getPoint(r, thetaPlus, phi);
+                    float3 pointPlusPhi = getPoint(r, theta, phiPlus);
 
-                p *= noise(p * _NoiseScale + _Time.y);
-                pointPlusTheta *= noise(pointPlusTheta * _NoiseScale + _Time.y);
-                pointPlusPhi *= noise(pointPlusPhi * _NoiseScale + _Time.y);
+                    p *= noise(p * _NoiseScale + _Time.y) * _NoiseAmount + 1.0;
+                    pointPlusTheta *= noise(pointPlusTheta * _NoiseScale + _Time.y) * _NoiseAmount + 1.0;
+                    pointPlusPhi *= noise(pointPlusPhi * _NoiseScale + _Time.y) * _NoiseAmount + 1.0;
 
+                    // float3 faceNorm = calculateFaceNormal(p, pointPlusTheta, pointPlusPhi);
+                    // faceNorm = normalize(faceNorm);
+                    // faceNorm *= -1;
 
-                float3 faceNorm = calculateFaceNormal(p, pointPlusTheta, pointPlusPhi);
-                faceNorm = normalize(faceNorm);
+                    v.vertex.xyz = p;
+                    v.normal = faceNorm;
 
-                faceNorm *= -1;
-
-                p *= _Scale;
-
-                v2f o;
-                o.vertex = UnityObjectToClipPos(p);
-                //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.worldNormal = UnityObjectToWorldNormal(faceNorm);
-                UNITY_TRANSFER_FOG(o,o.vertex);
-                return o;
             }
-            */
 
-        void vert (inout appdata_base v) {
-
-                float3 pos = v.vertex;
-                float r = length(pos);
-                float theta = atan2(pos.y, pos.x);
-                float phi = acos(pos.z / r);
-
-                theta -= PI;
-                phi -= PI/2;
-
-                float stepSize = 1.0;
-
-                float thetaPlus = theta + 1.0f/stepSize;
-                float phiPlus = phi + 1.0f/ stepSize;
-                float thetaMinus = theta - 1.0f/ stepSize;
-                float phiMinus = phi - 1.0f/ stepSize;
-
-                float3 p = getPoint(r, theta, phi);
-                float3 pointPlusTheta = getPoint(r, thetaPlus, phi);
-                float3 pointPlusPhi = getPoint(r, theta, phiPlus);
-
-                float _NoiseScale = 1.0;
-
-                p *= noise(p * _NoiseScale + _Time.y);
-                pointPlusTheta *= noise(pointPlusTheta * _NoiseScale + _Time.y);
-                pointPlusPhi *= noise(pointPlusPhi * _NoiseScale + _Time.y);
-
-                float3 faceNorm = calculateFaceNormal(p, pointPlusTheta, pointPlusPhi);
-                faceNorm = normalize(faceNorm);
-                faceNorm *= -1;
-
-                v.vertex.xyz += p;
-                v.normal = faceNorm;
-
-        }
-
-		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = c.rgb;
-			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;
-		}
+    		void surf (Input IN, inout SurfaceOutputStandard o) {
+    			// Albedo comes from a texture tinted by color
+    			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+    			o.Albedo = c.rgb + _Ambient.rgb;
+    			// Metallic and smoothness come from slider variables
+    			o.Metallic = _Metallic;
+    			o.Smoothness = _Glossiness;
+    			o.Alpha = c.a;
+    		}
+            
 		ENDCG
 	}
 	FallBack "Diffuse"
